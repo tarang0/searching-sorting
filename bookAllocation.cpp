@@ -7,15 +7,19 @@ bool isPossibleSolution(vector<int> books,int pages,int students){
     int student=1;
     int currPages=0;
     for(int i=0;i<books.size();i++){
+        if(books[i]>pages){
+            return false;
+        }
         if(books[i]+currPages<=pages){
             currPages+=books[i];
         }
         else{
             student++;
             currPages=books[i];
-        }
-        if(student>students){
-            return false;
+
+            if(student>students){
+                return false;
+            }
         }
     }
     return true;
@@ -26,7 +30,7 @@ int bookAllocation(vector<int> books,int students){
     }
 
     int minPages=0;
-    int maxPages=books[0];
+    int maxPages=0;
     int ans=-1;
     for(int k:books)    maxPages+=k;
     // sum of all pages is max possible books to be assigned
@@ -47,11 +51,15 @@ int bookAllocation(vector<int> books,int students){
     }
 
     cout<<"final ans: "<<ans<<endl;
-    return mid;
+    return ans;
 
 }
 int main(){
-    vector<int> books{12,34,67,90};
+    // vector<int> books{12,34,67,90};
+    // int students=2;
+    // vector<int> books{1,4,4};
+    // int students=3;
+    vector<int> books{7,2,5,10,8};
     int students=2;
     int ans=bookAllocation(books,students);
 }
